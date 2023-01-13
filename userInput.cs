@@ -8,15 +8,20 @@ namespace CodingTracker
 {
     public class UserInput
     {
+        DatabaseCreation database = new();
+        CRUDController action = new();
         public void ReadUserKey(string input)
         {
-            switch(input)
+            Console.WriteLine("\n-------------------------------\n");
+            switch (input)
             {
                 case "0":
                     break;
                 case "1":
+                    action.GetAllRecords(database.Name);
                     break;
                 case "2":
+                    action.Insert(database.Name);
                     break;
                 case "3":
                     break;

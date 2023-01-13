@@ -5,6 +5,7 @@ namespace CodingTracker
 {    
     public class DatabaseCreation
     {
+        Validation validation = new();
         string connectionString = ConfigurationManager.AppSettings.Get("databaseSource");
         private string _name;
         public DatabaseCreation(string name) 
@@ -20,20 +21,23 @@ namespace CodingTracker
         }
         public void CheckDatabaseExist(string name)
         {
-            using (var connection = new SqliteConnection(connectionString))
-            {
-                connection.Open();
+            using var connection = new SqliteConnection(connectionString);
+            
+            connection.Open();
 
-                var tableCmd = connection.CreateCommand();
+            var tableCmd = connection.CreateCommand();
 
-                tableCmd.CommandText =
-                        @$"CREATE TABLE IF NOT EXISTS {name} (
-                        Id INTEGER PRIMARY KEY AUTOINCREMENT,
-                        Date TEXT,
-                        DURATION INTEGER
-                        );";
+            tableCmd.CommandText =
+                    @$"CREATE TABLE IF NOT EXISTS {name} (
+                    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    Date TEXT,
+                    StartTime TEXT,
+                    EndTime TEXT,
+                    Duration INTEGER
+                    );";
+            validation.QueryHandling(tableCmd);
 
-            }
+            connection.Close();            
         }
     }
 }
