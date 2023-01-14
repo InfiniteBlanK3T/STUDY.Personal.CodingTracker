@@ -6,20 +6,19 @@ using System.Configuration;
 namespace CodingTracker;
 public class CRUDController
 {
-	string connectionString = ConfigurationManager.AppSettings.Get("databaseSource");
-	public CRUDController() { }
-
-	public void GetAllRecords(string record)
+	readonly string connectionString = ConfigurationManager.AppSettings.Get("databaseSource");
+	UserInput userInput = new();
+	Validation val = new();    
+    public void GetAllRecords(string record)
 	{
-		using var conn = new SqliteConnection(connectionString);
+        DataVisualisation table = new();
+        List<CodingSession> tableData = new();
+        using var conn = new SqliteConnection(connectionString);
 
 		conn.Open();
 
 		var tableCmd = conn.CreateCommand();
-
-		tableCmd.CommandText = $"SELECT * FROM {record}";
-
-		List<CodingSession> tableData = new();
+		tableCmd.CommandText = $"SELECT * FROM {record}";	
 
 		SqliteDataReader reader = tableCmd.ExecuteReader();
 
@@ -32,7 +31,9 @@ public class CRUDController
 					{
 						Id = reader.GetInt32(0),
 						Date = DateTime.ParseExact(reader.GetString(1), "dd-MM-yy", new CultureInfo("end-US")),
-						Duration = reader.GetInt32(2)
+						StartTime= reader.GetString(2),
+						EndTime = reader.GetString(3),
+						Duration = reader.GetInt32(4)
 					}
 					); ;
 			}
@@ -42,31 +43,23 @@ public class CRUDController
 			Console.WriteLine("No rows found");
 		}
 		conn.Close();
-
-		DataVisualisation table = new();
-
-		table.ShowingTable(tableData);
+        
+        table.ShowingTable(tableData);
 	}
 	public void Insert(string record)
-	{
-		Validation checkInput = new Validation();
-        string dateInsert = checkInput.GetDate();
-		List<int> timeInsert = new();
-		
-		//Not sure this is the optimal way to do this?
-		for (int i = 0; i < 2; i++)
-		{
-			if (i == 0) {
-				Console.WriteLine("Start Time");
-			}
-			else
-			{
-                Console.WriteLine("---------------");
-                Console.WriteLine("End Time");
-			}
-            int timeInputHour = checkInput.GetNumber("Hour: ");
-            int timeInputMinute = checkInput.GetNumber("Minute: ");
-        }
+	{		
+        string dateInsert = userInput.GetDate();		
+		List<int> timeInsert = userInput.GetUserTime();
+
+		using var conn = new SqliteConnection(connectionString);
+
+		conn.Open();
+		var tableCmd = conn.CreateCommand();
+		tableCmd.CommandText =
+			$@"INSERT INTO {record} (Date, StartTime, EndTime, Duration) 
+			VALUES ('{dateInsert}', '{timeInsert[0]}:{timeInsert[1]}', 
+			'{timeInsert[2]}:{timeInsert[3]}', {timeInsert[4]})";
+		val.QueryHandling(tableCmd);
 
 		Console.ReadLine();
     }

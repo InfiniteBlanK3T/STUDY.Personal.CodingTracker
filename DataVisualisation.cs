@@ -15,7 +15,8 @@ public class DataVisualisation
         var tableData = new List<List<object>> { };
         foreach (var data in table)
         {
-            tableData.Add(new List<object> { data.Id, data.Date, data.StartTime, data.EndTime, data.Duration });
+            var convertTime = $"{data.Duration/60}h{data.Duration % 60}min";
+            tableData.Add(new List<object> { data.Id, data.Date.ToString("dd-MM-yyyy"), data.StartTime, data.EndTime, convertTime });
         }
         ConsoleTableBuilder
             .From(tableData)

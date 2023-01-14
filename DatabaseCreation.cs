@@ -5,7 +5,7 @@ namespace CodingTracker
 {    
     public class DatabaseCreation
     {
-        Validation validation = new();
+        Validation val = new();
         string connectionString = ConfigurationManager.AppSettings.Get("databaseSource");
         private string _name;
         public DatabaseCreation(string name) 
@@ -35,7 +35,7 @@ namespace CodingTracker
                     EndTime TEXT,
                     Duration INTEGER
                     );";
-            validation.QueryHandling(tableCmd);
+            val.QueryHandling(tableCmd);
 
             connection.Close();            
         }
