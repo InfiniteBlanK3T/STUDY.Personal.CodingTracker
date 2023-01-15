@@ -25,13 +25,13 @@ public class Validation
         }
         return true;
     }
-/*    public int GetNumber(string input)
+    public int GetNumber(string input)
     {
         Console.Write(input);
 
         string numberInput = Console.ReadLine();
 
-        while(!int.TryParse(numberInput, out _) || Convert.ToInt32(numberInput) < 0)
+        while (!int.TryParse(numberInput, out _) || Convert.ToInt32(numberInput) < 0)
         {
             Console.Write("\n\nInvalid number. Try again: ");
             numberInput = Console.ReadLine();
@@ -39,7 +39,7 @@ public class Validation
         }
         int finalInput = Convert.ToInt32(numberInput);
         return finalInput;
-    }*/
+    }
     public bool CheckHourInput(string input)
     {
         if(!int.TryParse(input, out _) || Convert.ToInt32(input) < 0 || Convert.ToInt32(input) > 23)

@@ -53,8 +53,5 @@ public class DataVisualisation
                 {HeaderCharMapPositions.BorderRight, '|' },
             })
             .ExportAndWriteLine(TableAligntment.Center);
-        Console.WriteLine("Press ENTER to continue . . .");
-        Console.ReadLine();
     }
-
 }
