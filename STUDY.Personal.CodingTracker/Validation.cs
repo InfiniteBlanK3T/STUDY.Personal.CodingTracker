@@ -50,7 +50,7 @@ public class Validation
     }
     public bool CheckMinInput(string input)
     {
-        if (!int.TryParse(input, out _) || Convert.ToInt32(input) < 0 || Convert.ToInt32(input) > 60)
+        if (!int.TryParse(input, out _) || Convert.ToInt32(input) < 0 || Convert.ToInt32(input) > 59)
         {
             return false;
         }
