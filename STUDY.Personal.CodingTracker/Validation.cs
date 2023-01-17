@@ -13,8 +13,7 @@ public class Validation
         }
         catch (Exception ex)
         {
-            Console.WriteLine("Oh no! An error occured.\n - Details: " + ex.Message);
-            Console.ReadLine();
+            Console.WriteLine("Oh no! An error occured.\n - Details: " + ex.Message);           
         }
     }
     public bool CheckDateInput(string date)

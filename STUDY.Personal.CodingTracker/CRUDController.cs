@@ -45,7 +45,7 @@ public class CRUDController
 		}
 		conn.Close();
         
-        table.ShowingTable(tableData);
+        table.ShowingTable(tableData, record);
 	}
 	public void Insert(string record, string dateInsert, List<int> timeInsert)
 	{

@@ -13,7 +13,7 @@ namespace CodingTracker
             _name = name;
             CheckDatabaseExist(name);
         }
-        public DatabaseCreation() : this("Thomas") { }
+        public DatabaseCreation() : this("Thomas_Default") { }
         public string Name
         {
             set { _name = value; }

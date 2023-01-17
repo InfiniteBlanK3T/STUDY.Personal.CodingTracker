@@ -9,10 +9,9 @@ namespace CodingTracker;
 
 public class DataVisualisation
 {
-    public void ShowingTable(List<CodingSession> table)
+    public void ShowingTable(List<CodingSession> table, string tableName)
     {
         Console.Clear();
-        DatabaseCreation database= new();
         var tableData = new List<List<object>> { };
         foreach (var data in table)
         {
@@ -20,7 +19,8 @@ public class DataVisualisation
             tableData.Add(new List<object> { data.Id, data.Date.ToString("dd-MM-yyyy"), data.StartTime, data.EndTime, convertTime });
         }
         ConsoleTableBuilder
-            .From(tableData)            
+            .From(tableData)
+            .WithTitle($"{tableName}", ConsoleColor.Green, ConsoleColor.Black)
             .WithColumn("Id", "Date", "StartTime", "EndTime", "Duration")
             .WithMinLength(new Dictionary<int, int> {
                 { 1, 25 },

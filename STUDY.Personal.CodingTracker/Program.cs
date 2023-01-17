@@ -6,13 +6,13 @@ namespace CodingTracker;
 
 class Program
 {
+    static DatabaseCreation database = new();
     static void Main(string[] args)
-    {        
+    {
         MainMenu();
     }
     static void MainMenu()
-    {
-        DatabaseCreation database = new();
+    {        
         CRUDController action = new();
         UserInput input = new();
         bool endApp = false;
@@ -24,13 +24,13 @@ class Program
             Console.WriteLine("\n-------------------------------\n");
             Console.WriteLine("\tCODING TRACKER");
             Console.WriteLine("\n-------------------------------\n");
-            Console.WriteLine($"Welcome, {database.Name}!. Today {(DateTime.Now).ToString("dd - MM - yyyy")}");
+            Console.WriteLine($"Welcome, {database.Name.Replace("_", " ")}!. Today {(DateTime.Now).ToString("dd - MM - yyyy")}");
             Console.WriteLine("\n0. to Start Tracking. . .");
             Console.WriteLine("-------------------------------");            
             Console.WriteLine("1. View Records.");
             Console.WriteLine("2. Insert Records.");
             Console.WriteLine("3. Delete Records.");
-            Console.WriteLine("4.Update Records.");
+            Console.WriteLine("4. Update Records.");
             Console.WriteLine("5. See Record Report.");
             Console.WriteLine("-------------------------------");
             Console.WriteLine("6. CREATE YOUR OWN TRACKER !");            
@@ -81,15 +81,17 @@ class Program
                     TaskComplete();
                     break;
                 case "5":
+                    ReportTable(database.Name);
                     TaskComplete();
                     break;
                 case "6":
                     Console.Clear();
                     Console.Write("Your name for the record: ");
                     string? newRecordName = Console.ReadLine();
-                    while (newRecordName == null)
+                    newRecordName = newRecordName.Replace(" ", "_");
+                    while (newRecordName == null || newRecordName == "")
                     {
-                        Console.WriteLine("Invalid name please try again: ");
+                        Console.Write("Invalid name please try again: ");
                         newRecordName = Console.ReadLine();
                     }
                     database.Name = database.CreateNewRecord(newRecordName);                    
@@ -113,5 +115,11 @@ class Program
         Console.Write("Task completed. Press ENTER to continue.");
         Console.ReadLine();
         MainMenu();
+    }
+    static void ReportTable(string table)
+    {
+        Console.WriteLine("-------------------------------");
+        Console.WriteLine($"\tREPORT\rCURRENT TABLE: {table}");
+        Console.WriteLine("-------------------------------");
     }
 }
