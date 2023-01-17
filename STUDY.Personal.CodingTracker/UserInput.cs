@@ -28,7 +28,7 @@ namespace CodingTracker
         }
         public string GetDate()
         {
-            Console.Write("Insert the date: (Format dd-MM-yy): ");
+            Console.Write("Insert the date (Format dd-MM-yy): ");
             string dateInput = Console.ReadLine();
 
             while(!val.CheckDateInput(dateInput))
