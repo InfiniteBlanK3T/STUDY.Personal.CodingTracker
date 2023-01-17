@@ -10,55 +10,21 @@ namespace CodingTracker
     {
                 
         Validation val = new();
-        
-        public void ReadUserKey(string input)
+        public void GetRecordFromUser(string table)
         {
-            DatabaseCreation database = new();
             CRUDController action = new();
-            Thread.Sleep(1000);
-            Console.Clear();
-            switch (input)
-            {
-                case "0":
-                    break;
-                case "1":
-                    action.GetAllRecords(database.Name);
-                    TaskComplete();
-                    break;
-                case "2":
-                    action.Insert(database.Name);
-                    TaskComplete();
-                    break;
-                case "3":                   
-                    action.Delete(database.Name);
-                    TaskComplete();
-                    break;
-                case "4":                    
-                    action.Update(database.Name);
-                    TaskComplete();
-                    break;
-                case "5":
-                    TaskComplete();
-                    break;
-                case "6":
-                    TaskComplete();
-                    break;
-                case "7":
-                    Console.WriteLine("\nGoodbye!\n");
-                    Environment.Exit(0);
-                    break;
-                default:
-                    Console.Write("\nInvalid input! Please try again.");
-                    Console.ReadLine();
-                    break;
-            }
+            string dateInsert = GetDate();
+            List<int> timeInsert = GetUserTime();
+            action.Insert(table,dateInsert, timeInsert);
         }
-        internal void TaskComplete()
-        {
-            Thread.Sleep(1000);
-            Console.WriteLine("-------------------------------");
-            Console.Write("Task completed. Press ENTER to continue.");
-            Console.ReadLine();
+        public List<int> GetConcurrentTimeList(string start, string end)
+        {            
+            var startT = start.Split(":").Select(Int32.Parse).ToList();
+            var endT = end.Split(":").Select(Int32.Parse).ToList();
+            List<int> timeList = startT.Concat(endT).ToList();
+            timeList.Add(val.CalculateDuration(timeList));
+
+            return timeList;
         }
         public string GetDate()
         {

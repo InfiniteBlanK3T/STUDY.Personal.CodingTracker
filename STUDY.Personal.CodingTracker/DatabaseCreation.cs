@@ -39,5 +39,12 @@ namespace CodingTracker
 
             connection.Close();            
         }
+        public string CreateNewRecord(string tableName)
+        {
+            DatabaseCreation _ = new(tableName);
+            Console.WriteLine($"New record <<{tableName}>> created!");
+            Thread.Sleep(1000);
+            return tableName;
+        }
     }
 }

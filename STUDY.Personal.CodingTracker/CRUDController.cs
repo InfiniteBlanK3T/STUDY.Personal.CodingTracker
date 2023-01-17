@@ -47,11 +47,8 @@ public class CRUDController
         
         table.ShowingTable(tableData);
 	}
-	public void Insert(string record)
-	{		
-        string dateInsert = userInput.GetDate();		
-		List<int> timeInsert = userInput.GetUserTime();
-
+	public void Insert(string record, string dateInsert, List<int> timeInsert)
+	{
 		using var conn = new SqliteConnection(connectionString);
 
 		conn.Open();
