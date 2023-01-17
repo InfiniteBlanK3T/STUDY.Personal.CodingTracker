@@ -141,4 +141,30 @@ public class CRUDController
 		}
 		return false;
 	}
+    public bool Report(string record)
+    {
+        Console.Clear();
+
+        using (var connection = new SqliteConnection(connectionString))
+        {
+            connection.Open();
+
+            if (CheckEmptyTable(record)) return false;
+
+            var checkCmd = connection.CreateCommand();
+
+            checkCmd.CommandText = $"SELECT COUNT(*) FROM {record}";
+
+            int checkQuery = Convert.ToInt32(checkCmd.ExecuteScalar());
+
+            if (checkQuery < 3)
+            {
+                Console.WriteLine($"\n\nInsert at least {3 - checkQuery} more entries for the report !\n\n");
+
+                connection.Close();
+				return false;
+            }
+			return true;
+        }
+    }
 }

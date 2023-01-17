@@ -118,8 +118,18 @@ class Program
     }
     static void ReportTable(string table)
     {
+        CRUDController action = new();
         Console.WriteLine("-------------------------------");
         Console.WriteLine($"\tREPORT\rCURRENT TABLE: {table}");
         Console.WriteLine("-------------------------------");
+        bool reportable = action.Report(table);
+        while (reportable)
+        {
+
+        }
+        
+
+
+        
     }
 }
