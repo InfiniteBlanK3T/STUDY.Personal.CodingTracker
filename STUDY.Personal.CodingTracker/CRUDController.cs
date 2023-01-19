@@ -12,8 +12,10 @@ public class CRUDController
     public void GetAllRecords(string record)
 	{
         if (CheckEmptyTable(record)) return;
+
         DataVisualisation table = new();
         List<CodingSession> tableData = new();
+
         using var conn = new SqliteConnection(connectionString);
 
 		conn.Open();
@@ -43,7 +45,6 @@ public class CRUDController
 		{
 			Console.WriteLine("No rows found");
 		}
-		conn.Close();
         
         table.ShowingTable(tableData, record);
 	}
@@ -65,6 +66,7 @@ public class CRUDController
 		if (recordId == 0) return;
 
 		using var conn = new SqliteConnection(connectionString);
+
 		conn.Open();
 
 		var tableCmd = conn.CreateCommand();
@@ -79,20 +81,21 @@ public class CRUDController
 			Delete(record);
 			return;
 		}
+
 		Thread.Sleep(1000);
         GetAllRecords(record);
         Console.WriteLine($"\n\nRecord with Id {recordId} was deleted.\n\n");
-
-		conn.Close();
 	}
 	public void Update(string record)
 	{
         if (CheckEmptyTable(record)) return;
+
 		GetAllRecords(record);
         var recordId = val.GetNumber("Please type the Id of record you want to Update or Type 0 to back to the Menu: ");
         if (recordId == 0) return;
 
         using var conn = new SqliteConnection(connectionString);
+
         conn.Open();
 
         var checkCmd = conn.CreateCommand();
@@ -107,6 +110,7 @@ public class CRUDController
             Update(record);
             return;
         }
+
 		string date = userInput.GetDate();
         List<int> timeInsert = userInput.GetUserTime();
 
@@ -120,51 +124,47 @@ public class CRUDController
 		Thread.Sleep(1000);		
 		GetAllRecords(record);
         Console.WriteLine("\n\n Update Completed!");
-        conn.Close();		
     }
 	internal bool CheckEmptyTable(string record)
 	{
 		using var conn = new SqliteConnection(connectionString);
+
 		conn.Open();
 		
-		var checkCmd = conn.CreateCommand();
-		
+		var checkCmd = conn.CreateCommand();		
 		checkCmd.CommandText = $"SELECT COUNT(*) FROM {record}";
 		int checkQuery = Convert.ToInt32(checkCmd.ExecuteScalar());
-
-		conn.Close();
 
 		if (checkQuery == 0)
 		{
 			Console.WriteLine("No record in this table.");
 			return true;
 		}
+
 		return false;
 	}
     public bool Report(string record)
     {
         Console.Clear();
 
-        using (var connection = new SqliteConnection(connectionString))
+		using var connection = new SqliteConnection(connectionString);
+        
+        connection.Open();
+
+        if (CheckEmptyTable(record)) return false;
+
+        var checkCmd = connection.CreateCommand();
+        checkCmd.CommandText = $"SELECT COUNT(*) FROM {record}";
+        int checkQuery = Convert.ToInt32(checkCmd.ExecuteScalar());
+
+        if (checkQuery < 3)
         {
-            connection.Open();
+            Console.WriteLine($"\n\nInsert at least {3 - checkQuery} more entries for the report !\n\n");
 
-            if (CheckEmptyTable(record)) return false;
-
-            var checkCmd = connection.CreateCommand();
-
-            checkCmd.CommandText = $"SELECT COUNT(*) FROM {record}";
-
-            int checkQuery = Convert.ToInt32(checkCmd.ExecuteScalar());
-
-            if (checkQuery < 3)
-            {
-                Console.WriteLine($"\n\nInsert at least {3 - checkQuery} more entries for the report !\n\n");
-
-                connection.Close();
-				return false;
-            }
-			return true;
+            connection.Close();
+			return false;
         }
+
+		return true;        
     }
 }

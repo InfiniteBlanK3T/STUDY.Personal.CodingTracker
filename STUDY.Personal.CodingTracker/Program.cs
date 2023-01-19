@@ -25,13 +25,13 @@ class Program
             Console.WriteLine("\tCODING TRACKER");
             Console.WriteLine("\n-------------------------------\n");
             Console.WriteLine($"Welcome, {database.Name.Replace("_", " ")}!. Today {(DateTime.Now).ToString("dd - MM - yyyy")}");
-            Console.WriteLine("\n0. to Start Tracking. . .");
+            Console.WriteLine("\n0*. Start Tracking. . .");
             Console.WriteLine("-------------------------------");            
             Console.WriteLine("1. View Records.");
             Console.WriteLine("2. Insert Records.");
             Console.WriteLine("3. Delete Records.");
             Console.WriteLine("4. Update Records.");
-            Console.WriteLine("5. See Record Report.");
+            Console.WriteLine("5*. See Record Report.");
             Console.WriteLine("-------------------------------");
             Console.WriteLine("6. CREATE YOUR OWN TRACKER !");            
             Console.WriteLine("-------------------------------\n");
@@ -85,16 +85,7 @@ class Program
                     TaskComplete();
                     break;
                 case "6":
-                    Console.Clear();
-                    Console.Write("Your name for the record: ");
-                    string? newRecordName = Console.ReadLine();
-                    newRecordName = newRecordName.Replace(" ", "_");
-                    while (newRecordName == null || newRecordName == "")
-                    {
-                        Console.Write("Invalid name please try again: ");
-                        newRecordName = Console.ReadLine();
-                    }
-                    database.Name = database.CreateNewRecord(newRecordName);                    
+                    database.Name = database.CreateNewRecord(database.Name);                    
                     TaskComplete();
                     break;
                 case "7":
@@ -119,17 +110,46 @@ class Program
     static void ReportTable(string table)
     {
         CRUDController action = new();
-        Console.WriteLine("-------------------------------");
-        Console.WriteLine($"\tREPORT\rCURRENT TABLE: {table}");
-        Console.WriteLine("-------------------------------");
+
         bool reportable = action.Report(table);
-        while (reportable)
+        bool endReport = false;
+        while (reportable && !endReport)
         {
+            action.GetAllRecords(table);
+            Console.WriteLine("-------------------------------");
+            Console.WriteLine($"\tREPORT\r");
+            Console.WriteLine("-------------------------------");
+            Console.WriteLine("1. Filter and Report record per period");
+            Console.WriteLine("2. Setting goals");
+            Console.WriteLine("3. Return to Menu");
+            Console.WriteLine("-------------------------------");
+            Console.Write("Your option: ");
+            var input = Console.ReadLine();
 
-        }
-        
+            switch(input)
+            {
+                case "1":
+                    Console.WriteLine("-------------------------------");
+                    Console.WriteLine("1. Weeks");
+                    Console.WriteLine("2. Days");
+                    Console.WriteLine("3. Years");
+                    Console.WriteLine("-------------------------------");
+                    Console.Write("Your option: ");
+                    input = Console.ReadLine();
+                    break;
+                case "2":
+                    Console.WriteLine("");
+                    break;
+                case "3":
+                    endReport = true;
+                    break;
+                default:
+                    Console.Write("\nInvalid input! Please try again.");
+                    Console.ReadLine();
+                    break;
+            }
 
-
-        
+            return;
+        }        
     }
 }

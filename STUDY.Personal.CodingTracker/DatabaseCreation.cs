@@ -35,15 +35,26 @@ namespace CodingTracker
                     EndTime TEXT,
                     Duration INTEGER
                     );";
-            val.QueryHandling(tableCmd);
-
-            connection.Close();            
+            val.QueryHandling(tableCmd);         
         }
         public string CreateNewRecord(string tableName)
         {
+            Console.Clear();
+            Console.Write("Your name for the record: ");
+
+            string? newRecordName = Console.ReadLine();
+            newRecordName = newRecordName.Replace(" ", "_");
+
+            while (newRecordName == null || newRecordName == "")
+            {
+                Console.Write("Invalid name please try again: ");
+                newRecordName = Console.ReadLine();
+            }
+
             DatabaseCreation _ = new(tableName);
             Console.WriteLine($"New record <<{tableName}>> created!");
             Thread.Sleep(1000);
+
             return tableName;
         }
     }
