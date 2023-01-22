@@ -34,8 +34,8 @@ public class CRUDController
 		var tableCmd = conn.CreateCommand();
 		tableCmd.CommandText =
 			$@"INSERT INTO {record} (Date, StartTime, EndTime, Duration) 
-			VALUES ('{dateInsert}', '{timeInsert[0]}:{timeInsert[1]}', 
-			'{timeInsert[2]}:{timeInsert[3]}', {timeInsert[4]})";
+			VALUES ('{dateInsert}', '{timeInsert[0]}:{timeInsert[1].ToString("D2")}', 
+			'{timeInsert[2].ToString("D2")}:{timeInsert[3].ToString("D2")}', {timeInsert[4]})";
 		val.QueryHandling(tableCmd);
     }
 
@@ -56,7 +56,7 @@ public class CRUDController
 
 		if (rowCount == 0)
 		{
-			Console.WriteLine($"\n\nRecord with Id {recordId} does not exist. Press ENTER to try again.\n\n");
+			Console.WriteLine($"\n\nRecord with Id <<{recordId}>> does not exist. Press ENTER to try again.\n\n");
 			Console.ReadLine();
 			Console.Clear();
 			Delete(record);
@@ -65,7 +65,7 @@ public class CRUDController
 
 		Thread.Sleep(1000);
         GetAllRecords(record);
-        Console.WriteLine($"\n\nRecord with Id {recordId} was deleted.\n\n");
+        Console.WriteLine($"\n\nRecord with Id <<{recordId}>> was deleted.\n\n");
 	}
 
 	public void Update(string record)
@@ -98,10 +98,9 @@ public class CRUDController
 
 		var tableCmd = conn.CreateCommand();
 		tableCmd.CommandText =
-            // Trying to get 2 digit '1' -> '01' but ToString("D2") doesnt work dont know why
 			$@"UPDATE {record} SET date = '{date}', 
-			StartTime = '{timeInsert[0].ToString("D2")}:{timeInsert[1].ToString("D2")}',
-			EndTime = '{timeInsert[2].ToString("D2")}:{timeInsert[3].ToString("D2")}',
+			StartTime = '{timeInsert[0]}:{timeInsert[1]}',
+			EndTime = '{timeInsert[2]}:{timeInsert[3]}',
 			Duration = '{timeInsert[4]}'";
 		val.QueryHandling(tableCmd);
 		Thread.Sleep(1000);		
@@ -162,7 +161,7 @@ public class CRUDController
 		var currentMonth = DateTime.Now.Month.ToString("MM");
 		var currentYear = DateTime.Now.Year.ToString("yyyy");
         var queryRecord = conn.CreateCommand();
-		queryRecord.CommandText = $"SELECT * FROM {table} WHERE Date = '22/01/23'";
+		queryRecord.CommandText = $"SELECT * FROM {table} WHERE DATE = '22-01-23'";
 
 		FromQueryToTable(queryRecord, table);
 	}

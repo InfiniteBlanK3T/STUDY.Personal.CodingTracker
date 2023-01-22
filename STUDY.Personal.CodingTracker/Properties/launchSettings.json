@@ -1,8 +1,7 @@
 {
   "profiles": {
     "CodingTracker": {
-      "commandName": "Project",
-      "workingDirectory": "E:\\STUDY\\Code\\C#\\CodingTracker Proj\\InfiniteBlanK3T.CodingTracker"
+      "commandName": "Project"
     }
   }
 }

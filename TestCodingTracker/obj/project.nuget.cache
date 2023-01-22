@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "/6lFNQU1e6u/tw7M6TaLQOK6P4jmAWCHYLe5O/VosE3ckSX6bmeOgbi2SorhSbVi0HkiFQEkBo9Ejoyco3t+XQ==",
+  "dgSpecHash": "XAiptRRCctZ+R5VKOMoVqUBc+iLAX2M+pEfOebr16eEBovx0g8bb4z7ksQsSKQp+nOityjGvo1Fb9DN00YOxsg==",
   "success": true,
-  "projectFilePath": "E:\\STUDY\\Code\\C#\\CodingTracker Proj\\InfiniteBlanK3T.CodingTracker\\TestCodingTracker\\TestCodingTracker.csproj",
+  "projectFilePath": "E:\\STUDY\\Code\\C#\\CodingTracker Proj\\STUDY.Personal.CodingTracker\\TestCodingTracker\\TestCodingTracker.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\votho\\.nuget\\packages\\consoletableext\\3.2.0\\consoletableext.3.2.0.nupkg.sha512",
     "C:\\Users\\votho\\.nuget\\packages\\coverlet.collector\\3.1.2\\coverlet.collector.3.1.2.nupkg.sha512",

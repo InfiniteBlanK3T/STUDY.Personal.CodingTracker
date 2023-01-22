@@ -117,7 +117,8 @@ class Program
             Console.WriteLine("-------------------------------");
             Console.WriteLine($"\tREPORT OPTION\r");
             Console.WriteLine("-------------------------------");
-            Console.WriteLine("1. Filter & Report of the record");
+            Console.WriteLine("1. Filter Record");
+            Console.WriteLine("2. Report of the Record");
             Console.WriteLine("2. Set your own goals");
             Console.WriteLine("3. Return to Menu");
             Console.WriteLine("-------------------------------");
