@@ -6,15 +6,14 @@ using System.Configuration;
 namespace CodingTracker;
 public class CRUDController
 {
-	readonly string connectionString = ConfigurationManager.AppSettings.Get("databaseSource");
-	UserInput userInput = new();
-	Validation val = new();    
+    string connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+    string path = ConfigurationManager.AppSettings.Get("Path");
+    UserInput userInput = new();
+	Validation val = new(); 
+
     public void GetAllRecords(string record)
 	{
-        if (CheckEmptyTable(record)) return;
-
-        DataVisualisation table = new();
-        List<CodingSession> tableData = new();
+        if (CheckEmptyTable(record)) return;        
 
         using var conn = new SqliteConnection(connectionString);
 
@@ -23,31 +22,10 @@ public class CRUDController
 		var tableCmd = conn.CreateCommand();
 		tableCmd.CommandText = $"SELECT * FROM {record}";	
 
-		SqliteDataReader reader = tableCmd.ExecuteReader();
+		FromQueryToTable(tableCmd, record);
 
-		if (reader.HasRows)
-		{
-			while (reader.Read())
-			{
-				tableData.Add(
-					new CodingSession
-					{
-						Id = reader.GetInt32(0),
-						Date = DateTime.ParseExact(reader.GetString(1), "dd-MM-yy", new CultureInfo("end-US")),
-						StartTime= reader.GetString(2),
-						EndTime = reader.GetString(3),
-						Duration = reader.GetInt32(4)
-					}
-					); ;
-			}
-		}
-		else
-		{
-			Console.WriteLine("No rows found");
-		}
-        
-        table.ShowingTable(tableData, record);
 	}
+
 	public void Insert(string record, string dateInsert, List<int> timeInsert)
 	{
 		using var conn = new SqliteConnection(connectionString);
@@ -60,13 +38,16 @@ public class CRUDController
 			'{timeInsert[2]}:{timeInsert[3]}', {timeInsert[4]})";
 		val.QueryHandling(tableCmd);
     }
+
 	public void Delete(string record)
 	{
+        if (CheckEmptyTable(record)) return;
+
+        GetAllRecords(record);
         var recordId = val.GetNumber("Please type the Id of record you want to delete or Type 0 to back to the Menu: ");
-		if (recordId == 0) return;
+		if (recordId == 0) return;        
 
-		using var conn = new SqliteConnection(connectionString);
-
+        using var conn = new SqliteConnection(connectionString);
 		conn.Open();
 
 		var tableCmd = conn.CreateCommand();
@@ -86,6 +67,7 @@ public class CRUDController
         GetAllRecords(record);
         Console.WriteLine($"\n\nRecord with Id {recordId} was deleted.\n\n");
 	}
+
 	public void Update(string record)
 	{
         if (CheckEmptyTable(record)) return;
@@ -116,23 +98,25 @@ public class CRUDController
 
 		var tableCmd = conn.CreateCommand();
 		tableCmd.CommandText =
+            // Trying to get 2 digit '1' -> '01' but ToString("D2") doesnt work dont know why
 			$@"UPDATE {record} SET date = '{date}', 
-			StartTime = '{timeInsert[0]}:{timeInsert[1]}',
-			EndTime = '{timeInsert[2]}:{timeInsert[3]}',
+			StartTime = '{timeInsert[0].ToString("D2")}:{timeInsert[1].ToString("D2")}',
+			EndTime = '{timeInsert[2].ToString("D2")}:{timeInsert[3].ToString("D2")}',
 			Duration = '{timeInsert[4]}'";
 		val.QueryHandling(tableCmd);
 		Thread.Sleep(1000);		
 		GetAllRecords(record);
         Console.WriteLine("\n\n Update Completed!");
     }
-	internal bool CheckEmptyTable(string record)
+
+	internal bool CheckEmptyTable(string table)
 	{
 		using var conn = new SqliteConnection(connectionString);
 
 		conn.Open();
 		
 		var checkCmd = conn.CreateCommand();		
-		checkCmd.CommandText = $"SELECT COUNT(*) FROM {record}";
+		checkCmd.CommandText = $"SELECT COUNT(*) FROM {table}";
 		int checkQuery = Convert.ToInt32(checkCmd.ExecuteScalar());
 
 		if (checkQuery == 0)
@@ -143,7 +127,8 @@ public class CRUDController
 
 		return false;
 	}
-    public bool Report(string record)
+
+    public bool Report(string table)
     {
         Console.Clear();
 
@@ -151,10 +136,10 @@ public class CRUDController
         
         connection.Open();
 
-        if (CheckEmptyTable(record)) return false;
+        if (CheckEmptyTable(table)) return false;
 
         var checkCmd = connection.CreateCommand();
-        checkCmd.CommandText = $"SELECT COUNT(*) FROM {record}";
+        checkCmd.CommandText = $"SELECT COUNT(*) FROM {table}";
         int checkQuery = Convert.ToInt32(checkCmd.ExecuteScalar());
 
         if (checkQuery < 3)
@@ -166,5 +151,50 @@ public class CRUDController
         }
 
 		return true;        
+    }
+
+	public void ReportMontly(string table)
+	{
+        Console.Clear();
+        using var conn = new SqliteConnection(connectionString);
+		conn.Open();
+
+		var currentMonth = DateTime.Now.Month.ToString("MM");
+		var currentYear = DateTime.Now.Year.ToString("yyyy");
+        var queryRecord = conn.CreateCommand();
+		queryRecord.CommandText = $"SELECT * FROM {table} WHERE Date = '22/01/23'";
+
+		FromQueryToTable(queryRecord, table);
+	}
+
+    public void FromQueryToTable(SqliteCommand query, string table)
+    {
+        DataVisualisation makingTable = new();
+        List<CodingSession> tableData = new();
+
+        SqliteDataReader reader = query.ExecuteReader();
+
+        if (reader.HasRows)
+        {
+            while (reader.Read())
+            {
+                tableData.Add(
+                    new CodingSession
+                    {
+                        Id = reader.GetInt32(0),
+                        Date = DateTime.ParseExact(reader.GetString(1), "dd-MM-yy", new CultureInfo("end-US")),
+                        StartTime = reader.GetString(2),
+                        EndTime = reader.GetString(3),
+                        Duration = reader.GetInt32(4)
+                    }
+                    ); ;
+            }
+        }
+        else
+        {
+            Console.WriteLine("No rows found");
+        }
+
+        makingTable.ShowingTable(tableData, table);
     }
 }

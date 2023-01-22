@@ -1,18 +1,15 @@
-﻿using System.Configuration;
-using System.Collections.Specialized;
-using System;
-
-namespace CodingTracker;
+﻿namespace CodingTracker;
 
 class Program
 {
     static DatabaseCreation database = new();
-    static void Main(string[] args)
+    static void Main()
     {
         MainMenu();
     }
     static void MainMenu()
-    {        
+    {
+       
         CRUDController action = new();
         UserInput input = new();
         bool endApp = false;
@@ -85,7 +82,7 @@ class Program
                     TaskComplete();
                     break;
                 case "6":
-                    database.Name = database.CreateNewRecord(database.Name);                    
+                    database.Name = database.CreateNewRecord();                    
                     TaskComplete();
                     break;
                 case "7":
@@ -101,7 +98,7 @@ class Program
     }
     internal static void TaskComplete()
     {
-        Thread.Sleep(1000);
+        Thread.Sleep(500);
         Console.WriteLine("-------------------------------");
         Console.Write("Task completed. Press ENTER to continue.");
         Console.ReadLine();
@@ -113,14 +110,15 @@ class Program
 
         bool reportable = action.Report(table);
         bool endReport = false;
+
         while (reportable && !endReport)
         {
             action.GetAllRecords(table);
             Console.WriteLine("-------------------------------");
-            Console.WriteLine($"\tREPORT\r");
+            Console.WriteLine($"\tREPORT OPTION\r");
             Console.WriteLine("-------------------------------");
-            Console.WriteLine("1. Filter and Report record per period");
-            Console.WriteLine("2. Setting goals");
+            Console.WriteLine("1. Filter & Report of the record");
+            Console.WriteLine("2. Set your own goals");
             Console.WriteLine("3. Return to Menu");
             Console.WriteLine("-------------------------------");
             Console.Write("Your option: ");
@@ -129,13 +127,7 @@ class Program
             switch(input)
             {
                 case "1":
-                    Console.WriteLine("-------------------------------");
-                    Console.WriteLine("1. Weeks");
-                    Console.WriteLine("2. Days");
-                    Console.WriteLine("3. Years");
-                    Console.WriteLine("-------------------------------");
-                    Console.Write("Your option: ");
-                    input = Console.ReadLine();
+                    ReportTableOption1(table);
                     break;
                 case "2":
                     Console.WriteLine("");
@@ -146,10 +138,42 @@ class Program
                 default:
                     Console.Write("\nInvalid input! Please try again.");
                     Console.ReadLine();
+                    ReportTable(table);
                     break;
             }
 
             return;
         }        
+    }
+    static void ReportTableOption1(string table)
+    {
+        CRUDController action = new();
+
+        Console.WriteLine("-------------------------------");
+        Console.WriteLine("Period of time");
+        Console.WriteLine("------------------");
+        Console.WriteLine("1. This Month");
+        Console.WriteLine("2. This Year");
+        Console.WriteLine("3. Go back to Report Menu");
+        Console.WriteLine("-------------------------------");
+        Console.Write("Your option: ");
+        var input = Console.ReadLine();       
+
+        switch(input)
+        {
+            
+            case "1":                
+                action.ReportMontly(table);
+                Console.ReadLine();
+                break;
+            case "2":
+                break;
+            case "3":
+                break;
+            case"4":
+                break;
+            default:
+                break;
+        }
     }
 }

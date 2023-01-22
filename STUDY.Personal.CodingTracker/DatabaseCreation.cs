@@ -6,29 +6,32 @@ namespace CodingTracker
     public class DatabaseCreation
     {
         Validation val = new();
-        string connectionString = ConfigurationManager.AppSettings.Get("databaseSource");
         private string _name;
+        string connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+        string path = ConfigurationManager.AppSettings.Get("Path");
+
+
         public DatabaseCreation(string name) 
         {
-            _name = name;
-            CheckDatabaseExist(name);
+            _name = name;                        
+            AppDomain.CurrentDomain.SetData("DataDirectory", path);
+            CheckDatabaseExist();            
         }
+
         public DatabaseCreation() : this("Thomas_Default") { }
         public string Name
         {
             set { _name = value; }
             get { return _name; }
         }
-        public void CheckDatabaseExist(string name)
+        public void CheckDatabaseExist()
         {
             using var connection = new SqliteConnection(connectionString);
             
             connection.Open();
-
             var tableCmd = connection.CreateCommand();
-
             tableCmd.CommandText =
-                    @$"CREATE TABLE IF NOT EXISTS {name} (
+                    @$"CREATE TABLE IF NOT EXISTS {Name} (
                     Id INTEGER PRIMARY KEY AUTOINCREMENT,
                     Date TEXT,
                     StartTime TEXT,
@@ -37,7 +40,7 @@ namespace CodingTracker
                     );";
             val.QueryHandling(tableCmd);         
         }
-        public string CreateNewRecord(string tableName)
+        public string CreateNewRecord()
         {
             Console.Clear();
             Console.Write("Your name for the record: ");
@@ -51,11 +54,11 @@ namespace CodingTracker
                 newRecordName = Console.ReadLine();
             }
 
-            DatabaseCreation _ = new(tableName);
-            Console.WriteLine($"New record <<{tableName}>> created!");
+            DatabaseCreation _ = new(newRecordName);
+            Console.WriteLine($"New record <<{newRecordName}>> created!");
             Thread.Sleep(1000);
 
-            return tableName;
+            return newRecordName;
         }
     }
 }

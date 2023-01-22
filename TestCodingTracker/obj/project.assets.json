@@ -1,7 +1,7 @@
 {
   "version": 3,
   "targets": {
-    "net7.0-windows7.0": {
+    "net7.0": {
       "ConsoleTableExt/3.2.0": {
         "type": "package",
         "compile": {
@@ -624,10 +624,10 @@
           "SQLitePCLRaw.core": "2.1.2"
         },
         "compile": {
-          "lib/net6.0-windows7.0/SQLitePCLRaw.provider.e_sqlite3.dll": {}
+          "lib/net6.0/SQLitePCLRaw.provider.e_sqlite3.dll": {}
         },
         "runtime": {
-          "lib/net6.0-windows7.0/SQLitePCLRaw.provider.e_sqlite3.dll": {}
+          "lib/net6.0/SQLitePCLRaw.provider.e_sqlite3.dll": {}
         }
       },
       "System.Collections/4.0.11": {
@@ -4679,7 +4679,7 @@
     }
   },
   "projectFileDependencyGroups": {
-    "net7.0-windows7.0": [
+    "net7.0": [
       "CodingTracker >= 1.0.0",
       "Microsoft.NET.Test.Sdk >= 17.3.2",
       "NUnit >= 3.13.3",
@@ -4695,11 +4695,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\votho\\OneDrive\\STUDY\\Code\\C#\\CodingTracker Proj\\InfiniteBlanK3T.CodingTracker\\TestCodingTracker\\TestCodingTracker.csproj",
+      "projectUniqueName": "E:\\STUDY\\Code\\C#\\CodingTracker Proj\\InfiniteBlanK3T.CodingTracker\\TestCodingTracker\\TestCodingTracker.csproj",
       "projectName": "TestCodingTracker",
-      "projectPath": "C:\\Users\\votho\\OneDrive\\STUDY\\Code\\C#\\CodingTracker Proj\\InfiniteBlanK3T.CodingTracker\\TestCodingTracker\\TestCodingTracker.csproj",
+      "projectPath": "E:\\STUDY\\Code\\C#\\CodingTracker Proj\\InfiniteBlanK3T.CodingTracker\\TestCodingTracker\\TestCodingTracker.csproj",
       "packagesPath": "C:\\Users\\votho\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\votho\\OneDrive\\STUDY\\Code\\C#\\CodingTracker Proj\\InfiniteBlanK3T.CodingTracker\\TestCodingTracker\\obj\\",
+      "outputPath": "E:\\STUDY\\Code\\C#\\CodingTracker Proj\\InfiniteBlanK3T.CodingTracker\\TestCodingTracker\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -4710,18 +4710,19 @@
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
-        "net7.0-windows"
+        "net7.0"
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
-        "net7.0-windows7.0": {
-          "targetAlias": "net7.0-windows",
+        "net7.0": {
+          "targetAlias": "net7.0",
           "projectReferences": {
-            "C:\\Users\\votho\\OneDrive\\STUDY\\Code\\C#\\CodingTracker Proj\\InfiniteBlanK3T.CodingTracker\\STUDY.Personal.CodingTracker\\CodingTracker.csproj": {
-              "projectPath": "C:\\Users\\votho\\OneDrive\\STUDY\\Code\\C#\\CodingTracker Proj\\InfiniteBlanK3T.CodingTracker\\STUDY.Personal.CodingTracker\\CodingTracker.csproj"
+            "E:\\STUDY\\Code\\C#\\CodingTracker Proj\\InfiniteBlanK3T.CodingTracker\\STUDY.Personal.CodingTracker\\CodingTracker.csproj": {
+              "projectPath": "E:\\STUDY\\Code\\C#\\CodingTracker Proj\\InfiniteBlanK3T.CodingTracker\\STUDY.Personal.CodingTracker\\CodingTracker.csproj"
             }
           }
         }
@@ -4733,8 +4734,8 @@
       }
     },
     "frameworks": {
-      "net7.0-windows7.0": {
-        "targetAlias": "net7.0-windows",
+      "net7.0": {
+        "targetAlias": "net7.0",
         "dependencies": {
           "Microsoft.NET.Test.Sdk": {
             "target": "Package",
@@ -4773,7 +4774,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.101\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
       }
     }
   }
