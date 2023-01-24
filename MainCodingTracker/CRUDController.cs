@@ -8,12 +8,12 @@ public class CRUDController
 {        
     UserInput userInput = new();
 	Validation val = new();
-    string connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+    string connectionString = ConfigurationManager.ConnectionStrings["connectionstring"].ConnectionString;
+    readonly string path = ConfigurationManager.AppSettings.Get("Path");
 
     public CRUDController()
     {        
-        /*string path = ConfigurationManager.AppSettings.Get("Path");
-        AppDomain.CurrentDomain.SetData("DataDirectory", path);*/
+        AppDomain.CurrentDomain.SetData("DataDirectory", path);
     }
 
     public void GetAllRecords(string record)
