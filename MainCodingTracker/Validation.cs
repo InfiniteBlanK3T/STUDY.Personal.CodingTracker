@@ -16,6 +16,7 @@ public class Validation
             Console.WriteLine("Oh no! An error occured.\n - Details: " + ex.Message);           
         }
     }
+
     public bool CheckDateInput(string date)
     {
         if(!DateTime.TryParseExact(date, "dd-MM-yy", new CultureInfo("en-US"), DateTimeStyles.None, out _))
@@ -24,6 +25,7 @@ public class Validation
         }
         return true;
     }
+
     public int GetNumber(string input)
     {
         Console.Write(input);
@@ -39,6 +41,7 @@ public class Validation
         int finalInput = Convert.ToInt32(numberInput);
         return finalInput;
     }
+
     public bool CheckHourInput(string input)
     {
         if(!int.TryParse(input, out _) || Convert.ToInt32(input) < 0 || Convert.ToInt32(input) > 23)
@@ -47,6 +50,7 @@ public class Validation
         }       
         return true;
     }
+
     public bool CheckMinInput(string input)
     {
         if (!int.TryParse(input, out _) || Convert.ToInt32(input) < 0 || Convert.ToInt32(input) > 59)
@@ -55,6 +59,7 @@ public class Validation
         }
         return true;
     }
+
     public int CalculateDuration(List<int> list)
     {
         int minute;
@@ -68,6 +73,21 @@ public class Validation
         int totalDuration = (hour * 60) + minute;
 
         return totalDuration;
+    }
+
+    public string CheckMonthInputReport(string prompt)
+    {
+        Console.Write(prompt);
+        var input = Console.ReadLine();
+        if (input == "")
+        {
+            return DateTime.Now.Month.ToString("MM");
+        }
+        if (!DateTime.TryParseExact(input, "MM", new CultureInfo("en-US"), DateTimeStyles.None, out _))
+        {
+            return null;
+        }
+        return input;        
     }
 
 }

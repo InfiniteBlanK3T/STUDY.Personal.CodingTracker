@@ -41,25 +41,8 @@ class Program
             switch (userOption)
             {
                 case "0":
-                    string date = DateTime.Now.ToString("dd-MM-yy");
-                    string startTime = DateTime.Now.ToString("HH:mm");
-                    string endTime = DateTime.Now.ToString("HH:mm");
-
-                    Console.WriteLine($"Timer start now.\nToday: {DateTime.Now.ToString("dd - MM - yyyy")}.");
-                    Console.WriteLine("-------------------------------\n");
-                    Console.WriteLine($"Start Time: {startTime}");
-                    Console.Write("\nPress SPACEBAR to stop the Timer");
-                    if (Console.ReadKey().Key == ConsoleKey.Spacebar)
-                    {
-                        Console.Write("\r" + new string(' ', Console.WindowWidth) + "\r");
-                        Console.WriteLine($"Stop Time: {endTime}");
-                        Console.WriteLine("-------------------------------");
-                        List<int> timerList = input.GetConcurrentTimeList(startTime, endTime);
-                        action.Insert(database.Name, date, timerList);
-                        Console.WriteLine("Timer added to the record.");
-                    }
-                    TaskComplete();
-                    Console.ReadLine();                    
+                    input.StartingTimerCount(database.Name);
+                    TaskComplete();                                        
                     break;
                 case "1":
                     action.GetAllRecords(database.Name);
@@ -96,6 +79,8 @@ class Program
             }
         }
     }
+
+    //Maybe a better way to do this but in the meantime this method looks good
     internal static void TaskComplete()
     {
         Thread.Sleep(500);
@@ -104,9 +89,11 @@ class Program
         Console.ReadLine();
         MainMenu();
     }
+
     static void ReportTable(string table)
     {
         CRUDController action = new();
+        UserInput input = new();
 
         bool reportable = action.Report(table);
         bool endReport = false;
@@ -123,12 +110,16 @@ class Program
             Console.WriteLine("3. Return to Menu");
             Console.WriteLine("-------------------------------");
             Console.Write("Your option: ");
-            var input = Console.ReadLine();
+            var userOption = Console.ReadLine();
 
-            switch(input)
+            switch(userOption)
             {
                 case "1":
-                    ReportTableOption1(table);
+                    Console.WriteLine("-------------------------------");
+                    Console.WriteLine($"FILTER");
+                    Console.WriteLine("-------------------------------");
+                    while (!input.GetReportFilter(table))
+                    { input.GetReportFilter(table); }
                     break;
                 case "2":
                     Console.WriteLine("");
@@ -145,36 +136,5 @@ class Program
 
             return;
         }        
-    }
-    static void ReportTableOption1(string table)
-    {
-        CRUDController action = new();
-
-        Console.WriteLine("-------------------------------");
-        Console.WriteLine("Period of time");
-        Console.WriteLine("------------------");
-        Console.WriteLine("1. This Month");
-        Console.WriteLine("2. This Year");
-        Console.WriteLine("3. Go back to Report Menu");
-        Console.WriteLine("-------------------------------");
-        Console.Write("Your option: ");
-        var input = Console.ReadLine();       
-
-        switch(input)
-        {
-            
-            case "1":                
-                action.ReportMontly(table);
-                Console.ReadLine();
-                break;
-            case "2":
-                break;
-            case "3":
-                break;
-            case"4":
-                break;
-            default:
-                break;
-        }
-    }
+    }    
 }

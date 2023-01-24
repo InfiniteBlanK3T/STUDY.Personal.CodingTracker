@@ -5,11 +5,16 @@ using System.Configuration;
 
 namespace CodingTracker;
 public class CRUDController
-{
-    string connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
-    string path = ConfigurationManager.AppSettings.Get("Path");
+{        
     UserInput userInput = new();
-	Validation val = new(); 
+	Validation val = new();
+    string connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+
+    public CRUDController()
+    {        
+        /*string path = ConfigurationManager.AppSettings.Get("Path");
+        AppDomain.CurrentDomain.SetData("DataDirectory", path);*/
+    }
 
     public void GetAllRecords(string record)
 	{
@@ -23,7 +28,6 @@ public class CRUDController
 		tableCmd.CommandText = $"SELECT * FROM {record}";	
 
 		FromQueryToTable(tableCmd, record);
-
 	}
 
 	public void Insert(string record, string dateInsert, List<int> timeInsert)
@@ -112,8 +116,7 @@ public class CRUDController
 	{
 		using var conn = new SqliteConnection(connectionString);
 
-		conn.Open();
-		
+		conn.Open();		
 		var checkCmd = conn.CreateCommand();		
 		checkCmd.CommandText = $"SELECT COUNT(*) FROM {table}";
 		int checkQuery = Convert.ToInt32(checkCmd.ExecuteScalar());
@@ -130,11 +133,9 @@ public class CRUDController
     public bool Report(string table)
     {
         Console.Clear();
-
 		using var connection = new SqliteConnection(connectionString);
         
         connection.Open();
-
         if (CheckEmptyTable(table)) return false;
 
         var checkCmd = connection.CreateCommand();
@@ -152,14 +153,14 @@ public class CRUDController
 		return true;        
     }
 
-	public void ReportMontly(string table)
+	public void ReportPeriodOfTime(string table)
 	{
         Console.Clear();
         using var conn = new SqliteConnection(connectionString);
 		conn.Open();
 
-		var currentMonth = DateTime.Now.Month.ToString("MM");
-		var currentYear = DateTime.Now.Year.ToString("yyyy");
+		var queryMonth = DateTime.Now.Month.ToString("MM");
+		var queryYear = DateTime.Now.Year.ToString("yyyy");
         var queryRecord = conn.CreateCommand();
 		queryRecord.CommandText = $"SELECT * FROM {table} WHERE DATE = '22-01-23'";
 

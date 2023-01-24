@@ -7,14 +7,14 @@ namespace CodingTracker
     {
         Validation val = new();
         private string _name;
-        string connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
-        string path = ConfigurationManager.AppSettings.Get("Path");
+        string connectionString = ConfigurationManager.ConnectionStrings["connectionstring"].ConnectionString;
+       /* string path = ConfigurationManager.AppSettings.Get("Path");*/
 
 
         public DatabaseCreation(string name) 
         {
             _name = name;                        
-            AppDomain.CurrentDomain.SetData("DataDirectory", path);
+            /*AppDomain.CurrentDomain.SetData("DataDirectory", path);*/
             CheckDatabaseExist();            
         }
 
