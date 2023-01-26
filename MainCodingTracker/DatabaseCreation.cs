@@ -13,7 +13,7 @@ namespace CodingTracker
         public DatabaseCreation(string name) 
         {
             _name = name;                        
-            AppDomain.CurrentDomain.SetData("DataDirectory", path);
+            AppDomain.CurrentDomain.SetData("DataDirectory", path);            
             CheckDatabaseExist();            
         }
 
