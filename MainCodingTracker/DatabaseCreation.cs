@@ -8,21 +8,21 @@ namespace CodingTracker
         Validation val = new();
         private string _name;
         string connectionString = ConfigurationManager.ConnectionStrings["connectionstring"].ConnectionString;
-        readonly string path = ConfigurationManager.AppSettings.Get("Path");
-
+        
         public DatabaseCreation(string name) 
         {
-            _name = name;                        
-            AppDomain.CurrentDomain.SetData("DataDirectory", path);            
+            _name = name;                                             
             CheckDatabaseExist();            
         }
 
         public DatabaseCreation() : this("Thomas_Default") { }
+
         public string Name
         {
             set { _name = value; }
             get { return _name; }
         }
+
         public void CheckDatabaseExist()
         {
             using var connection = new SqliteConnection(connectionString);
@@ -39,6 +39,7 @@ namespace CodingTracker
                     );";
             val.QueryHandling(tableCmd);         
         }
+
         public string CreateNewRecord()
         {
             Console.Clear();

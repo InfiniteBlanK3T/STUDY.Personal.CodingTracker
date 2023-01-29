@@ -8,13 +8,7 @@ public class CRUDController
 {        
     UserInput userInput = new();
 	Validation val = new();
-    string connectionString = ConfigurationManager.ConnectionStrings["connectionstring"].ConnectionString;
-    readonly string path = ConfigurationManager.AppSettings.Get("Path");
-
-    public CRUDController()
-    {        
-        AppDomain.CurrentDomain.SetData("DataDirectory", path);
-    }
+    readonly string connectionString = ConfigurationManager.ConnectionStrings["connectionstring"].ConnectionString;    
 
     public void GetAllRecords(string record)
 	{
@@ -25,7 +19,7 @@ public class CRUDController
 		conn.Open();
 
 		var tableCmd = conn.CreateCommand();
-		tableCmd.CommandText = $"SELECT * FROM {record}";	
+		tableCmd.CommandText = $"SELECT * FROM {record} ORDER BY Date DESC";	
 
 		FromQueryToTable(tableCmd, record);
 	}
@@ -123,6 +117,7 @@ public class CRUDController
 
 		if (checkQuery == 0)
 		{
+            //Console.WriteLine(path);
 			Console.WriteLine("No record in this table.");
 			return true;
 		}
@@ -153,48 +148,53 @@ public class CRUDController
 		return true;        
     }
 
-	public void ReportPeriodOfTime(string table)
-	{
-        Console.Clear();
+	public void ReportWithTimeFilter(string table)
+	{        
+        var filterQuery = userInput.GetReportFilter();
         using var conn = new SqliteConnection(connectionString);
-		conn.Open();
-
-		var queryMonth = DateTime.Now.Month.ToString("MM");
-		var queryYear = DateTime.Now.Year.ToString("yyyy");
+		conn.Open();        
         var queryRecord = conn.CreateCommand();
-		queryRecord.CommandText = $"SELECT * FROM {table} WHERE DATE = '22-01-23'";
+		queryRecord.CommandText = $"SELECT * FROM {table} WHERE Date LIKE '{filterQuery[0]}-{filterQuery[1]}%' ORDER BY Date {filterQuery[2]}";
 
+        Thread.Sleep(500);
 		FromQueryToTable(queryRecord, table);
+
 	}
 
     public void FromQueryToTable(SqliteCommand query, string table)
     {
         DataVisualisation makingTable = new();
         List<CodingSession> tableData = new();
-
-        SqliteDataReader reader = query.ExecuteReader();
-
-        if (reader.HasRows)
+        try
         {
-            while (reader.Read())
+            SqliteDataReader reader = query.ExecuteReader();
+
+            if (reader.HasRows)
             {
-                tableData.Add(
-                    new CodingSession
-                    {
-                        Id = reader.GetInt32(0),
-                        Date = DateTime.ParseExact(reader.GetString(1), "dd-MM-yy", new CultureInfo("end-US")),
-                        StartTime = reader.GetString(2),
-                        EndTime = reader.GetString(3),
-                        Duration = reader.GetInt32(4)
-                    }
-                    ); ;
+                while (reader.Read())
+                {
+                    tableData.Add(
+                        new CodingSession
+                        {
+                            Id = reader.GetInt32(0),
+                            Date = DateTime.ParseExact(reader.GetString(1), "yyyy-MM-dd", new CultureInfo("end-US")),
+                            StartTime = reader.GetString(2),
+                            EndTime = reader.GetString(3),
+                            Duration = reader.GetInt32(4)
+                        }
+                        ); ;
+                }
             }
-        }
-        else
-        {
-            Console.WriteLine("No rows found");
-        }
+            else
+            {
+                Console.WriteLine("No rows found");
+            }
 
-        makingTable.ShowingTable(tableData, table);
+            makingTable.ShowingTable(tableData, table);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine (ex.Message );
+        }
     }
 }

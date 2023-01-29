@@ -32,13 +32,13 @@ namespace CodingTracker
         }
 
         public string GetDate()
-        {
-            Console.Write("Insert the date (Format dd-MM-yy): ");
+        {            
+            Console.Write("Insert the date (Format yyyy-MM-dd): ");
             string dateInput = Console.ReadLine();
 
             while(!val.CheckDateInput(dateInput))
             {
-                Console.Write("\n\nInvalid date. (Formate: dd-MM-yy). Try again: ");
+                Console.Write("\nInvalid date. (Formate: yyyy-MM-dd). Try again: ");
                 dateInput = Console.ReadLine();
             }           
 
@@ -147,62 +147,73 @@ namespace CodingTracker
             }
         }
 
-        internal bool ErrorPrompt()
+        public string GetMonthQueryReport()
         {
-            Console.Write("Invalid input. Press ENTER to try again or Type 0 to quit.");
-            var quit = Console.ReadLine();
-            if (quit == "0") 
+            Console.Write("Choose a month (01-12) OR press ENTER to choose a whole year: ");
+            var input = Console.ReadLine();
+
+            if (input == "") { return ""; }
+
+            while (!val.CheckMonthInputReport(input))
             {
-                Console.WriteLine("-------------------------------");
-                Console.WriteLine("User quits."); 
-                return true; 
+                Console.Write("Invalid month input. Try again: ");
+                input = Console.ReadLine();
             }
-            Console.Write("\r" + new string(' ', Console.WindowWidth) + "\r");
-            Thread.Sleep(1000);
-            return false;
+
+            return input;
         }
 
-        public bool GetReportFilter(string table)
-        {                      
-            var inputMonth = val.CheckMonthInputReport("Choose a month (01-12) or Press ENTER for CURRENT month: ");           
+        public string GetYearQueryReport()
+        {
+            Console.Write($"Choose a year (Format: yyyy) OR press ENTER for Current Year ({DateTime.Now.Year}): ");
+            var input = Console.ReadLine();
 
-            if (inputMonth == null)
+            if (input == "") { return DateTime.Now.Year.ToString(); }
+
+            while (!val.CheckYearInputReport(input))
             {
-                var error = ErrorPrompt();
-                if (error) return true;
-                GetReportFilter(table);
+                Console.Write("Invalid month input. Try again: ");
+                input = Console.ReadLine();
             }
 
-            var sortOption = ReportSorting("Sort by: Ascending(a)/Descending(d). (a/d)? ");
-
-            // How can I make this not repetitive?
-            if (sortOption == null)
-            {
-                var error = ErrorPrompt();
-                if (error) return true;
-                GetReportFilter(table);
-            }
-            Console.WriteLine("Done");
-
-            return true;
+            return input;
         }
 
-        public string ReportSorting(string prompt)
+        public string? ReportSorting(string prompt)
         {
             Console.Write(prompt);
 
             var option = Console.ReadLine();
 
-            switch(option)
+            switch (option)
             {
                 case "a":
-                    return "ASC";                    
+                    return "ASC";
                 case "d":
-                    return "DESC";                    
+                    return "DESC";
                 default:
+                    ReportSorting(prompt);
+                    //no way it reaches here
                     return null;
             }
         }
 
+        public List<string> GetReportFilter()
+        {
+            List<string> filtersOption = new();
+            string yearQuery = GetYearQueryReport(); filtersOption.Add(yearQuery);
+            string monthQuery = GetMonthQueryReport(); filtersOption.Add(monthQuery);
+            string sortOption = ReportSorting("Sort by: Ascending(a)/Descending(d). (a/d)? "); filtersOption.Add(sortOption);
+
+            return filtersOption;
+        }
+
+        public void MakeReport()
+        {
+            Console.WriteLine("Avearage time spent per day: ");
+            Console.WriteLine("Date with highest time spent: ");
+            Console.WriteLine("Date with lowest time spent: ");
+            Console.WriteLine("Total time spent: ");
+        }
     }
 }

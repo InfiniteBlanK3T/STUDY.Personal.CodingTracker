@@ -1,7 +1,8 @@
 {
   "profiles": {
     "CodingTracker": {
-      "commandName": "Project"
+      "commandName": "Project",
+      "workingDirectory": "D:\\Personal Project\\STUDY\\CodingTracker Proj\\STUDY.Personal.CodingTracker"
     }
   }
 }

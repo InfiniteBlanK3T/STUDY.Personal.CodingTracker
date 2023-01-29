@@ -19,7 +19,7 @@ public class Validation
 
     public bool CheckDateInput(string date)
     {
-        if(!DateTime.TryParseExact(date, "dd-MM-yy", new CultureInfo("en-US"), DateTimeStyles.None, out _))
+        if(!DateTime.TryParseExact(date, "yyyy-MM-dd", new CultureInfo("en-US"), DateTimeStyles.None, out _))
         {
             return false;
         }
@@ -75,19 +75,21 @@ public class Validation
         return totalDuration;
     }
 
-    public string CheckMonthInputReport(string prompt)
+    public bool CheckMonthInputReport(string input)
     {
-        Console.Write(prompt);
-        var input = Console.ReadLine();
-        if (input == "")
-        {
-            return DateTime.Now.Month.ToString("MM");
-        }
         if (!DateTime.TryParseExact(input, "MM", new CultureInfo("en-US"), DateTimeStyles.None, out _))
         {
-            return null;
+            return false;
         }
-        return input;        
+        return true;
     }
 
+    public bool CheckYearInputReport(string input)
+    {
+        if (!DateTime.TryParseExact(input, "yyyy", new CultureInfo("en-US"), DateTimeStyles.None, out _))
+        {
+            return false;
+        }
+        return true;
+    }
 }

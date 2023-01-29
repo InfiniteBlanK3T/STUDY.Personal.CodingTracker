@@ -104,25 +104,26 @@ class Program
             Console.WriteLine("-------------------------------");
             Console.WriteLine($"\tREPORT OPTION\r");
             Console.WriteLine("-------------------------------");
-            Console.WriteLine("1. Filter Record");
-            Console.WriteLine("2. Report of the Record");
+            Console.WriteLine("1. Filter Record & see Report");            
             Console.WriteLine("2. Set your own goals");
             Console.WriteLine("3. Return to Menu");
             Console.WriteLine("-------------------------------");
             Console.Write("Your option: ");
             var userOption = Console.ReadLine();
 
+            Console.Clear();            
             switch(userOption)
             {
                 case "1":
+                    action.GetAllRecords(table);
                     Console.WriteLine("-------------------------------");
                     Console.WriteLine($"FILTER");
                     Console.WriteLine("-------------------------------");
-                    while (!input.GetReportFilter(table))
-                    { input.GetReportFilter(table); }
+                    action.ReportWithTimeFilter(table);
+                    
                     break;
                 case "2":
-                    Console.WriteLine("");
+                    Console.WriteLine("Goal set! See report option to see your goal stats.");
                     break;
                 case "3":
                     endReport = true;
@@ -133,7 +134,6 @@ class Program
                     ReportTable(table);
                     break;
             }
-
             return;
         }        
     }    
