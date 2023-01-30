@@ -110,11 +110,11 @@ class Program
             Console.WriteLine("-------------------------------");
             Console.Write("Your option: ");
             var userOption = Console.ReadLine();
-
-            Console.Clear();            
+                        
             switch(userOption)
             {
                 case "1":
+                    Console.Clear();
                     action.GetAllRecords(table);
                     Console.WriteLine("-------------------------------");
                     Console.WriteLine($"FILTER");

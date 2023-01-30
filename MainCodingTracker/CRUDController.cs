@@ -157,9 +157,29 @@ public class CRUDController
 		queryRecord.CommandText = $"SELECT * FROM {table} WHERE Date LIKE '{filterQuery[0]}-{filterQuery[1]}%' ORDER BY Date {filterQuery[2]}";
 
         Thread.Sleep(500);
-		FromQueryToTable(queryRecord, table);
+		FromQueryToTable(queryRecord, table);      
+        Console.WriteLine("-------------------------------");
+        GetAverageTimeReport(table, filterQuery);
+    }
 
-	}
+    public void GetAverageTimeReport(string table, List<string> list)
+    {
+        using var conn = new SqliteConnection(connectionString);
+        conn.Open();
+        var queryAvgRecord = conn.CreateCommand();
+        queryAvgRecord.CommandText = $"SELECT AVG(Duration) FROM {table} WHERE Date LIKE '{list[0]}-{list[1]}%'";
+        try
+        {
+            var avgRecordInt = Convert.ToInt32(queryAvgRecord.ExecuteScalar());
+            var avgRecord = $"Avearage time spent per day: {avgRecordInt / 60}h{avgRecordInt % 60}min";
+            Console.WriteLine(avgRecord);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }       
+        
+    }
 
     public void FromQueryToTable(SqliteCommand query, string table)
     {

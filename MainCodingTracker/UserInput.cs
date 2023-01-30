@@ -207,13 +207,5 @@ namespace CodingTracker
 
             return filtersOption;
         }
-
-        public void MakeReport()
-        {
-            Console.WriteLine("Avearage time spent per day: ");
-            Console.WriteLine("Date with highest time spent: ");
-            Console.WriteLine("Date with lowest time spent: ");
-            Console.WriteLine("Total time spent: ");
-        }
     }
 }
