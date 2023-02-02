@@ -217,4 +217,16 @@ public class CRUDController
             Console.WriteLine (ex.Message );
         }
     }
+
+    public void InsertGoal(string record, int goal)
+    {
+        using var conn = new SqliteConnection(connectionString);
+
+        conn.Open();
+        var tableCmd = conn.CreateCommand();
+        tableCmd.CommandText =
+            $@"INSERT INTO {record} (Goal) 
+			VALUES ({goal})";
+        val.QueryHandling(tableCmd);
+    }
 }

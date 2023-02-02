@@ -35,7 +35,8 @@ namespace CodingTracker
                     Date TEXT,
                     StartTime TEXT,
                     EndTime TEXT,
-                    Duration INTEGER
+                    Duration INTEGER,
+                    Goal INTEGER
                     );";
             val.QueryHandling(tableCmd);         
         }

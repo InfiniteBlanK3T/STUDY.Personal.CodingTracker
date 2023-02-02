@@ -119,10 +119,10 @@ class Program
                     Console.WriteLine("-------------------------------");
                     Console.WriteLine($"FILTER");
                     Console.WriteLine("-------------------------------");
-                    action.ReportWithTimeFilter(table);
-                    
+                    action.ReportWithTimeFilter(table);                    
                     break;
                 case "2":
+
                     Console.WriteLine("Goal set! See report option to see your goal stats.");
                     break;
                 case "3":
