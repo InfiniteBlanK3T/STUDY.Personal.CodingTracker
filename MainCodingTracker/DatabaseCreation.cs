@@ -12,7 +12,7 @@ namespace CodingTracker
         public DatabaseCreation(string name) 
         {
             _name = name;                                             
-            CheckDatabaseExist();            
+            CheckMainTableExist();            
         }
 
         public DatabaseCreation() : this("Thomas_Default") { }
@@ -23,7 +23,7 @@ namespace CodingTracker
             get { return _name; }
         }
 
-        public void CheckDatabaseExist()
+        public void CheckMainTableExist()
         {
             using var connection = new SqliteConnection(connectionString);
             
@@ -35,10 +35,39 @@ namespace CodingTracker
                     Date TEXT,
                     StartTime TEXT,
                     EndTime TEXT,
-                    Duration INTEGER,
-                    Goal INTEGER
+                    Duration INTEGER
                     );";
-            val.QueryHandling(tableCmd);         
+            try
+            {
+                tableCmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Oh no! An error occured.\n - Details: " + ex.Message);
+            }
+        }
+
+        public void CheckGoalTableExist()
+        {
+            using var connection = new SqliteConnection(connectionString);
+
+            connection.Open();
+            var tableCmd = connection.CreateCommand();
+            tableCmd.CommandText =
+                $@"CREATE TABLE IF NOT EXISTS Goals (
+                Id INTEGER PRIMARY KEY AUTOINCREMENT,
+                Name TEXT,
+                TimePerDay Interger,
+                Goal Interger
+                );";
+            try
+            {
+                tableCmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Oh no! An error occured.\n - Details: " + ex.Message);
+            }
         }
 
         public string CreateNewRecord()

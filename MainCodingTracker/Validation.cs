@@ -5,18 +5,6 @@ namespace CodingTracker;
 
 public class Validation
 {
-    public void QueryHandling(SqliteCommand e)
-    {
-        try
-        {
-            e.ExecuteNonQuery();
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine("Oh no! An error occured.\n - Details: " + ex.Message);           
-        }
-    }
-
     public bool CheckDateInput(string date)
     {
         if(!DateTime.TryParseExact(date, "yyyy-MM-dd", new CultureInfo("en-US"), DateTimeStyles.None, out _))
@@ -91,5 +79,12 @@ public class Validation
             return false;
         }
         return true;
+    }
+
+    public string ConvertTime(object input)
+    {
+        var time = Convert.ToInt32(input);
+        var timeConverted = $"{time / 60}h{time % 60}min";
+        return timeConverted;
     }
 }

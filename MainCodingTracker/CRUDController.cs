@@ -2,6 +2,7 @@
 using Microsoft.Data.Sqlite;
 using System.Globalization;
 using System.Configuration;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace CodingTracker;
 public class CRUDController
@@ -34,7 +35,14 @@ public class CRUDController
 			$@"INSERT INTO {record} (Date, StartTime, EndTime, Duration) 
 			VALUES ('{dateInsert}', '{timeInsert[0]}:{timeInsert[1].ToString("D2")}', 
 			'{timeInsert[2].ToString("D2")}:{timeInsert[3].ToString("D2")}', {timeInsert[4]})";
-		val.QueryHandling(tableCmd);
+        try
+        {
+            tableCmd.ExecuteNonQuery();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Oh no! An error occured.\n - Details: " + ex.Message);
+        }
     }
 
 	public void Delete(string record)
@@ -100,10 +108,17 @@ public class CRUDController
 			StartTime = '{timeInsert[0]}:{timeInsert[1]}',
 			EndTime = '{timeInsert[2]}:{timeInsert[3]}',
 			Duration = '{timeInsert[4]}'";
-		val.QueryHandling(tableCmd);
-		Thread.Sleep(1000);		
-		GetAllRecords(record);
-        Console.WriteLine("\n\n Update Completed!");
+        try
+        {
+            tableCmd.ExecuteNonQuery();
+            Thread.Sleep(1000);
+            GetAllRecords(record);
+            Console.WriteLine("\n\n Update Completed!");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Oh no! An error occured.\n - Details: " + ex.Message);
+        }
     }
 
 	internal bool CheckEmptyTable(string table)
@@ -177,8 +192,7 @@ public class CRUDController
         catch (Exception ex)
         {
             Console.WriteLine(ex.Message);
-        }       
-        
+        }     
     }
 
     public void FromQueryToTable(SqliteCommand query, string table)
@@ -218,15 +232,95 @@ public class CRUDController
         }
     }
 
-    public void InsertGoal(string record, int goal)
+    public bool GoalExists(string record)
+    {
+        using var conn = new SqliteConnection(connectionString);
+
+        conn.Open();
+
+        var checkCmd = conn.CreateCommand();
+        checkCmd.CommandText = $"SELECT EXISTS(SELECT 1 FROM Goals WHERE Name = '{record}')";
+        int rowCount = Convert.ToInt32(checkCmd.ExecuteScalar());
+
+        if (rowCount == 1) { return true; }
+        else { return false; }
+
+    }
+
+    public void InsertGoal(string record, int time, int goal)
     {
         using var conn = new SqliteConnection(connectionString);
 
         conn.Open();
         var tableCmd = conn.CreateCommand();
         tableCmd.CommandText =
-            $@"INSERT INTO {record} (Goal) 
-			VALUES ({goal})";
-        val.QueryHandling(tableCmd);
+            $@"INSERT INTO Goals (Name, TimePerDay, Goal) 
+			VALUES ('{record}',{time}, {goal})";
+        try
+        {
+            tableCmd.ExecuteNonQuery();
+            Console.WriteLine("Goal set! Press ENTER to return.\nSee report option to see your goal stats.");
+            Console.ReadLine();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Oh no! An error occured.\n - Details: " + ex.Message);
+        }        
+    }
+
+    public void UpdateGoal(string record, int time, int goal)
+    {
+        using var conn = new SqliteConnection(connectionString);
+        conn.Open();
+        var tableCmd = conn.CreateCommand();
+        tableCmd.CommandText =
+            $@"UPDATE Goals SET TimePerDay = {time}, Goal = {goal}  WHERE Name = '{record}'";
+        try
+        {
+            tableCmd.ExecuteNonQuery();
+            Thread.Sleep(500);
+            Console.WriteLine("Update Completed!");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Oh no! An error occured.\n - Details: " + ex.Message);
+        }
+    }
+
+    public void GetGoal(string table)
+    {
+        using var conn = new SqliteConnection(connectionString);
+        conn.Open();
+        var queryGoal = conn.CreateCommand();
+        var queryTimePerDay = conn.CreateCommand();
+        queryTimePerDay.CommandText = $"SELECT TimePerDay FROM Goals WHERE Name = '{table}'";
+        queryGoal.CommandText = $"SELECT Goal FROM Goals WHERE Name = '{table}'";
+        try
+        {
+            Console.Clear();
+            Console.WriteLine("-------------------------------");
+            Console.WriteLine("\tYOUR GOAL!");
+            Console.WriteLine("-------------------------------");
+            Console.WriteLine("See Report Option to see your Progress!");
+            var userTimePerDay = queryTimePerDay.ExecuteScalar();
+            var userGoal = queryGoal.ExecuteScalar();
+            Console.WriteLine($"Time per day: {val.ConvertTime(userTimePerDay)}");
+            Console.WriteLine($"Your Goal: {val.ConvertTime(userGoal)}");
+            Console.WriteLine("-------------------------------");
+            
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
+    }
+
+    public void CompareGoalWithRecord(string table)
+    {
+        using var conn = new SqliteConnection (connectionString);
+        conn.Open();
+        var queryRecord = conn.CreateCommand();
+        queryRecord.CommandText = $"SELECT DURATION FROM {table}";
+
     }
 }

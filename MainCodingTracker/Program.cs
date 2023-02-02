@@ -122,8 +122,7 @@ class Program
                     action.ReportWithTimeFilter(table);                    
                     break;
                 case "2":
-
-                    Console.WriteLine("Goal set! See report option to see your goal stats.");
+                    input.GetUserGoal(table);                    
                     break;
                 case "3":
                     endReport = true;

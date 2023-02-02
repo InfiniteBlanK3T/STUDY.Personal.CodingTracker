@@ -207,5 +207,68 @@ namespace CodingTracker
 
             return filtersOption;
         }
+
+        public void GetUserGoal(string record)
+        {
+            CRUDController action = new();
+            DatabaseCreation goal = new("Goal");
+            goal.CheckGoalTableExist();
+            Console.Clear();
+            Console.WriteLine("-------------------------------");
+            bool makeGoal = action.GoalExists(record);
+            
+
+            if (makeGoal)
+            {
+                action.GetGoal(record);
+                Console.Write("Do you want to create new goal? (y/n): ");
+                var input = Console.ReadLine();
+                switch (input)
+                {
+                    case "y":
+                        makeGoal = false;
+                        break;
+                    case "n":
+                        makeGoal = true;
+                        break;
+                    default:
+                        Console.WriteLine("Invalid input. Press ANY to return.");
+                        Console.ReadLine();
+                        return;
+                }
+            }
+            //IF put else here will skip this part
+            if (!makeGoal)
+            {
+                Console.Clear();
+                Console.WriteLine("-------------------------------");
+                Console.WriteLine("In MINUTE put down your time (60 MIN = 1 HOUR)");
+                var userTimePerDay = val.GetNumber("Time per day: ");
+
+                while (userTimePerDay > 720) 
+                {
+                    Console.Write("Don't spend more than 12 hours on computer! Please, set your time again!");
+                    userTimePerDay = val.GetNumber("Time per day: ");
+                }
+                var userGoal = val.GetNumber("Goal: ");
+                try
+                {
+                    if (action.GoalExists(record))
+                    {
+                        action.UpdateGoal(record, userTimePerDay, userGoal);                        
+                    }
+                    else
+                    {
+                        action.InsertGoal(record, userTimePerDay, userGoal);                        
+                    }                    
+                    Thread.Sleep(1000);
+                    action.GetGoal(record);                    
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+            }            
+        }
     }
 }
