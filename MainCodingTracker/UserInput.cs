@@ -127,7 +127,7 @@ namespace CodingTracker
 
         public void StartingTimerCount(string table)
         {
-            string date = DateTime.Now.ToString("dd-MM-yy");
+            string date = DateTime.Now.ToString("yyyy-MM-dd");
             string startTime = DateTime.Now.ToString("HH:mm");
             string endTime = DateTime.Now.ToString("HH:mm");
 
