@@ -245,9 +245,9 @@ namespace CodingTracker
                 Console.WriteLine("In MINUTE put down your time (60 MIN = 1 HOUR)");
                 var userTimePerDay = val.GetNumber("Time per day: ");
 
-                while (userTimePerDay > 720) 
+                while (userTimePerDay > 600) 
                 {
-                    Console.Write("Don't spend more than 12 hours on computer! Please, set your time again!");
+                    Console.Write("Don't spend more than 10 hours on computer! Please, set your time again! - ");
                     userTimePerDay = val.GetNumber("Time per day: ");
                 }
                 var userGoal = val.GetNumber("Goal: ");

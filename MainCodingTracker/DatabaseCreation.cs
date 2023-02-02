@@ -57,6 +57,7 @@ namespace CodingTracker
                 $@"CREATE TABLE IF NOT EXISTS Goals (
                 Id INTEGER PRIMARY KEY AUTOINCREMENT,
                 Name TEXT,
+                Date TEXT,
                 TimePerDay Interger,
                 Goal Interger
                 );";
