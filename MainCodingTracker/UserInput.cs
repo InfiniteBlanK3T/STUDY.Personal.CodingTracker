@@ -1,16 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Threading.Tasks.Sources;
-using static System.Collections.Specialized.BitVector32;
-
-namespace CodingTracker
+﻿namespace CodingTracker
 {
     public class UserInput
-    {
-                
+    {                
         Validation val = new();
         
         public void GetRecordFromUser(string table)

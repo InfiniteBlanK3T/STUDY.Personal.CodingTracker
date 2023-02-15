@@ -1,8 +1,6 @@
-﻿using System;
-using Microsoft.Data.Sqlite;
+﻿using Microsoft.Data.Sqlite;
 using System.Globalization;
 using System.Configuration;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace CodingTracker;
 public class CRUDController

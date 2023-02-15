@@ -4,8 +4,7 @@ using System.Configuration;
 namespace CodingTracker
 {    
     public class DatabaseCreation
-    {
-        Validation val = new();
+    {        
         private string _name;
         string connectionString = ConfigurationManager.ConnectionStrings["connectionstring"].ConnectionString;
         

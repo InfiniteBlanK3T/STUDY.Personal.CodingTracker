@@ -124,8 +124,7 @@ class Program
                 case "2":
                     input.GetUserGoal(table);                    
                     break;
-                case "3":
-                    endReport = true;
+                case "3":                    
                     break;
                 default:
                     Console.Write("\nInvalid input! Please try again.");
