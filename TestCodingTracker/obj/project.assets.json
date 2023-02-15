@@ -3949,7 +3949,7 @@
   },
   "projectFileDependencyGroups": {
     "net7.0": [
-      "D:\\Personal Project\\STUDY\\CodingTracker Proj\\InfiniteBlanK3T.CodingTracker\\STUDY.Personal.CodingTracker\\CodingTracker.csproj",
+      "D:\\Personal Project\\STUDY\\CodingTracker Proj\\InfiniteBlanK3T2.CodingTracker\\STUDY.Personal.CodingTracker\\CodingTracker.csproj",
       "Microsoft.NET.Test.Sdk >= 17.3.2",
       "NUnit >= 3.13.3",
       "NUnit.Analyzers >= 3.3.0",
@@ -3963,11 +3963,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Personal Project\\STUDY\\CodingTracker Proj\\InfiniteBlanK3T.CodingTracker\\TestCodingTracker\\TestCodingTracker.csproj",
+      "projectUniqueName": "D:\\Personal Project\\STUDY\\CodingTracker Proj\\InfiniteBlanK3T2.CodingTracker\\TestCodingTracker\\TestCodingTracker.csproj",
       "projectName": "TestCodingTracker",
-      "projectPath": "D:\\Personal Project\\STUDY\\CodingTracker Proj\\InfiniteBlanK3T.CodingTracker\\TestCodingTracker\\TestCodingTracker.csproj",
+      "projectPath": "D:\\Personal Project\\STUDY\\CodingTracker Proj\\InfiniteBlanK3T2.CodingTracker\\TestCodingTracker\\TestCodingTracker.csproj",
       "packagesPath": "C:\\Users\\votho\\.nuget\\packages\\",
-      "outputPath": "D:\\Personal Project\\STUDY\\CodingTracker Proj\\InfiniteBlanK3T.CodingTracker\\TestCodingTracker\\obj\\",
+      "outputPath": "D:\\Personal Project\\STUDY\\CodingTracker Proj\\InfiniteBlanK3T2.CodingTracker\\TestCodingTracker\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\votho\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -3984,8 +3984,8 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "D:\\Personal Project\\STUDY\\CodingTracker Proj\\InfiniteBlanK3T.CodingTracker\\STUDY.Personal.CodingTracker\\CodingTracker.csproj": {
-              "projectPath": "D:\\Personal Project\\STUDY\\CodingTracker Proj\\InfiniteBlanK3T.CodingTracker\\STUDY.Personal.CodingTracker\\CodingTracker.csproj"
+            "D:\\Personal Project\\STUDY\\CodingTracker Proj\\InfiniteBlanK3T2.CodingTracker\\STUDY.Personal.CodingTracker\\CodingTracker.csproj": {
+              "projectPath": "D:\\Personal Project\\STUDY\\CodingTracker Proj\\InfiniteBlanK3T2.CodingTracker\\STUDY.Personal.CodingTracker\\CodingTracker.csproj"
             }
           }
         }
@@ -4045,8 +4045,8 @@
     {
       "code": "NU1104",
       "level": "Error",
-      "message": "Unable to find project 'D:\\Personal Project\\STUDY\\CodingTracker Proj\\InfiniteBlanK3T.CodingTracker\\STUDY.Personal.CodingTracker\\CodingTracker.csproj'. Check that the project reference is valid and that the project file exists.",
-      "libraryId": "D:\\Personal Project\\STUDY\\CodingTracker Proj\\InfiniteBlanK3T.CodingTracker\\STUDY.Personal.CodingTracker\\CodingTracker.csproj",
+      "message": "Unable to find project 'D:\\Personal Project\\STUDY\\CodingTracker Proj\\InfiniteBlanK3T2.CodingTracker\\STUDY.Personal.CodingTracker\\CodingTracker.csproj'. Check that the project reference is valid and that the project file exists.",
+      "libraryId": "D:\\Personal Project\\STUDY\\CodingTracker Proj\\InfiniteBlanK3T2.CodingTracker\\STUDY.Personal.CodingTracker\\CodingTracker.csproj",
       "targetGraphs": [
         "net7.0"
       ]

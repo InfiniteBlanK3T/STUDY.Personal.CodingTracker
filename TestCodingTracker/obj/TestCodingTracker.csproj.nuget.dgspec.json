@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Personal Project\\STUDY\\CodingTracker Proj\\InfiniteBlanK3T.CodingTracker\\TestCodingTracker\\TestCodingTracker.csproj": {}
+    "D:\\Personal Project\\STUDY\\CodingTracker Proj\\InfiniteBlanK3T2.CodingTracker\\TestCodingTracker\\TestCodingTracker.csproj": {}
   },
   "projects": {
-    "D:\\Personal Project\\STUDY\\CodingTracker Proj\\InfiniteBlanK3T.CodingTracker\\TestCodingTracker\\TestCodingTracker.csproj": {
+    "D:\\Personal Project\\STUDY\\CodingTracker Proj\\InfiniteBlanK3T2.CodingTracker\\TestCodingTracker\\TestCodingTracker.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Personal Project\\STUDY\\CodingTracker Proj\\InfiniteBlanK3T.CodingTracker\\TestCodingTracker\\TestCodingTracker.csproj",
+        "projectUniqueName": "D:\\Personal Project\\STUDY\\CodingTracker Proj\\InfiniteBlanK3T2.CodingTracker\\TestCodingTracker\\TestCodingTracker.csproj",
         "projectName": "TestCodingTracker",
-        "projectPath": "D:\\Personal Project\\STUDY\\CodingTracker Proj\\InfiniteBlanK3T.CodingTracker\\TestCodingTracker\\TestCodingTracker.csproj",
+        "projectPath": "D:\\Personal Project\\STUDY\\CodingTracker Proj\\InfiniteBlanK3T2.CodingTracker\\TestCodingTracker\\TestCodingTracker.csproj",
         "packagesPath": "C:\\Users\\votho\\.nuget\\packages\\",
-        "outputPath": "D:\\Personal Project\\STUDY\\CodingTracker Proj\\InfiniteBlanK3T.CodingTracker\\TestCodingTracker\\obj\\",
+        "outputPath": "D:\\Personal Project\\STUDY\\CodingTracker Proj\\InfiniteBlanK3T2.CodingTracker\\TestCodingTracker\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\votho\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -28,8 +28,8 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "D:\\Personal Project\\STUDY\\CodingTracker Proj\\InfiniteBlanK3T.CodingTracker\\STUDY.Personal.CodingTracker\\CodingTracker.csproj": {
-                "projectPath": "D:\\Personal Project\\STUDY\\CodingTracker Proj\\InfiniteBlanK3T.CodingTracker\\STUDY.Personal.CodingTracker\\CodingTracker.csproj"
+              "D:\\Personal Project\\STUDY\\CodingTracker Proj\\InfiniteBlanK3T2.CodingTracker\\STUDY.Personal.CodingTracker\\CodingTracker.csproj": {
+                "projectPath": "D:\\Personal Project\\STUDY\\CodingTracker Proj\\InfiniteBlanK3T2.CodingTracker\\STUDY.Personal.CodingTracker\\CodingTracker.csproj"
               }
             }
           }

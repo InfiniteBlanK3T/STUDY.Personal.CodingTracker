@@ -83,9 +83,10 @@ namespace CodingTracker
             // StartTime then loop if endT still < StartT.
             int[] defaultTime = { 1, 0, 0, 0 };
             List<int> timeInsert = new(defaultTime);
+            var endLoop = false;
 
             //Not sure this is the optimal way to do this?
-            while (timeInsert[2] < timeInsert[0])
+            while (!endLoop)
             {
                 Console.WriteLine("-------------------------------");
                 Console.WriteLine("Time format - 24 hour");
@@ -107,15 +108,13 @@ namespace CodingTracker
                     timeInsert.Add(timeInputHour);
                     timeInsert.Add(timeInputMinute);
                 }
-                if (timeInsert[2] < timeInsert[0])
+                if (timeInsert[2] > timeInsert[0] || timeInsert[2] == timeInsert[0] && timeInsert[3] > timeInsert[1])
                 {
-                    Console.WriteLine("EndTime cannot be before StartTime. Press ENTER to try again.");
-                    Console.ReadLine();
-                    Console.Clear();
+                    endLoop = true;                                       
                 }
-                if (timeInsert[0] == timeInsert[2] && timeInsert[1] == timeInsert[3])
+                else
                 {
-                    Console.WriteLine("EndTime and StartTime are the same. Press ENTER to try again.");
+                    Console.WriteLine("EndTime and StartTime are invalid. Press ENTER to try again.");
                     Console.ReadLine();
                     Console.Clear();
                 }
