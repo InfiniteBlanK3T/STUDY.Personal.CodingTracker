@@ -129,8 +129,7 @@ public class CRUDController
 		int checkQuery = Convert.ToInt32(checkCmd.ExecuteScalar());
 
 		if (checkQuery == 0)
-		{
-            //Console.WriteLine(path);
+		{            
 			Console.WriteLine("No record in this table.");
 			return true;
 		}

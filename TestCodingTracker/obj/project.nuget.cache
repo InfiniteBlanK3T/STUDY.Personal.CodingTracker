@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "/VuR2X49KXUMlGiWpm8+blRiFkpCCalSRdkZpd8sWDa2Uaau/EG7w/NipFoJi73HN4UhYWkqqvBACQmkdNrdgg==",
+  "dgSpecHash": "QThFoNcNj5YSBeFmq7wr8rs1BT2JR6xm5zufzr5JIdxYv3HOJpbQp4rFeN1BHTSZo78sbpSnY2CDUuCX8F6tmQ==",
   "success": false,
-  "projectFilePath": "D:\\Personal Project\\STUDY\\CodingTracker Proj\\InfiniteBlanK3T2.CodingTracker\\TestCodingTracker\\TestCodingTracker.csproj",
+  "projectFilePath": "E:\\STUDY\\Code\\C#\\CodingTracker Proj\\STUDY.Personal.CodingTracker\\TestCodingTracker\\TestCodingTracker.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\votho\\.nuget\\packages\\coverlet.collector\\3.1.2\\coverlet.collector.3.1.2.nupkg.sha512",
     "C:\\Users\\votho\\.nuget\\packages\\microsoft.codecoverage\\17.3.2\\microsoft.codecoverage.17.3.2.nupkg.sha512",
@@ -56,8 +56,8 @@
     {
       "code": "NU1104",
       "level": "Error",
-      "message": "Unable to find project 'D:\\Personal Project\\STUDY\\CodingTracker Proj\\InfiniteBlanK3T2.CodingTracker\\STUDY.Personal.CodingTracker\\CodingTracker.csproj'. Check that the project reference is valid and that the project file exists.",
-      "libraryId": "D:\\Personal Project\\STUDY\\CodingTracker Proj\\InfiniteBlanK3T2.CodingTracker\\STUDY.Personal.CodingTracker\\CodingTracker.csproj",
+      "message": "Unable to find project 'E:\\STUDY\\Code\\C#\\CodingTracker Proj\\STUDY.Personal.CodingTracker\\STUDY.Personal.CodingTracker\\CodingTracker.csproj'. Check that the project reference is valid and that the project file exists.",
+      "libraryId": "E:\\STUDY\\Code\\C#\\CodingTracker Proj\\STUDY.Personal.CodingTracker\\STUDY.Personal.CodingTracker\\CodingTracker.csproj",
       "targetGraphs": [
         "net7.0"
       ]

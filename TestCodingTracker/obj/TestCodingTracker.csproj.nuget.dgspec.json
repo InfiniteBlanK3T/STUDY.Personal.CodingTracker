@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Personal Project\\STUDY\\CodingTracker Proj\\InfiniteBlanK3T2.CodingTracker\\TestCodingTracker\\TestCodingTracker.csproj": {}
+    "E:\\STUDY\\Code\\C#\\CodingTracker Proj\\STUDY.Personal.CodingTracker\\TestCodingTracker\\TestCodingTracker.csproj": {}
   },
   "projects": {
-    "D:\\Personal Project\\STUDY\\CodingTracker Proj\\InfiniteBlanK3T2.CodingTracker\\TestCodingTracker\\TestCodingTracker.csproj": {
+    "E:\\STUDY\\Code\\C#\\CodingTracker Proj\\STUDY.Personal.CodingTracker\\TestCodingTracker\\TestCodingTracker.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Personal Project\\STUDY\\CodingTracker Proj\\InfiniteBlanK3T2.CodingTracker\\TestCodingTracker\\TestCodingTracker.csproj",
+        "projectUniqueName": "E:\\STUDY\\Code\\C#\\CodingTracker Proj\\STUDY.Personal.CodingTracker\\TestCodingTracker\\TestCodingTracker.csproj",
         "projectName": "TestCodingTracker",
-        "projectPath": "D:\\Personal Project\\STUDY\\CodingTracker Proj\\InfiniteBlanK3T2.CodingTracker\\TestCodingTracker\\TestCodingTracker.csproj",
+        "projectPath": "E:\\STUDY\\Code\\C#\\CodingTracker Proj\\STUDY.Personal.CodingTracker\\TestCodingTracker\\TestCodingTracker.csproj",
         "packagesPath": "C:\\Users\\votho\\.nuget\\packages\\",
-        "outputPath": "D:\\Personal Project\\STUDY\\CodingTracker Proj\\InfiniteBlanK3T2.CodingTracker\\TestCodingTracker\\obj\\",
+        "outputPath": "E:\\STUDY\\Code\\C#\\CodingTracker Proj\\STUDY.Personal.CodingTracker\\TestCodingTracker\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
           "C:\\Users\\votho\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -22,14 +26,15 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "D:\\Personal Project\\STUDY\\CodingTracker Proj\\InfiniteBlanK3T2.CodingTracker\\STUDY.Personal.CodingTracker\\CodingTracker.csproj": {
-                "projectPath": "D:\\Personal Project\\STUDY\\CodingTracker Proj\\InfiniteBlanK3T2.CodingTracker\\STUDY.Personal.CodingTracker\\CodingTracker.csproj"
+              "E:\\STUDY\\Code\\C#\\CodingTracker Proj\\STUDY.Personal.CodingTracker\\STUDY.Personal.CodingTracker\\CodingTracker.csproj": {
+                "projectPath": "E:\\STUDY\\Code\\C#\\CodingTracker Proj\\STUDY.Personal.CodingTracker\\STUDY.Personal.CodingTracker\\CodingTracker.csproj"
               }
             }
           }
